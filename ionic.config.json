@@ -1,5 +1,7 @@
 {
   "name": "iw40kl",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

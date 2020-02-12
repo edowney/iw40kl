@@ -1,0 +1,178 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Submit Game</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="submit-content">
+  <app-factions></app-factions>
+  <form class="submit-form" [formGroup]="submitForm" (ngSubmit)="onSubmit(submitForm.value)">
+    <ion-list class="inputs-list" lines="full">
+      
+      <ion-item class="input-item">
+        <ion-label>Tournament mode</ion-label>
+        <ion-toggle (ionChange)="tournamentModeChanged($event)" formControlName="tournamentMode"></ion-toggle>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Date played</ion-label>
+        <ion-datetime (ionChange)="datePlayedChanged($event)" formControlName="dateplayed" display-format="DD MMM YYYY"></ion-datetime>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Your name</ion-label>
+        <ion-select (ionChange)="yourNameChanged($event)" formControlName="yourname" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let playername of players" [value]="playername" >{{playername}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Your track</ion-label>
+        <ion-select formControlName="yourtrack" (ionChange)="yourTrackChanged($event)" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let track of tracks" [value]="track" >{{track}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Your points</ion-label>
+        <ion-input type="text" formControlName="yourpoints" clearInput required></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Your faction</ion-label>
+        <ion-select formControlName="yourfaction" (ionChange)="yourFactionChanged($event)" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let faction of factions" [value]="faction" >{{faction}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Your Handicap points</ion-label>
+        <ion-input type="text" formControlName="yourhandicappoints" clearInput required></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Opponent's name</ion-label>
+        <ion-select formControlName="opponentname" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let playername of players" [value]="playername" >{{playername}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div *ngIf="submitForm.errors?.DifferentPlayersValidator && (submitForm.touched || submitForm.dirty)">Player names cannot be the same.</div>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Opponent's track</ion-label>
+        <ion-select formControlName="opponenttrack" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let track of tracks" [value]="track" >{{track}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Opponent's points</ion-label>
+        <ion-input type="text" formControlName="opponentpoints" clearInput required></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Opponent's faction</ion-label>
+        <ion-select formControlName="opponentfaction" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let faction of factions" [value]="faction" >{{faction}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Opponents Handicap points</ion-label>
+        <ion-input type="text" formControlName="opponentshandicappoints" clearInput></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Your Initial judging</ion-label>
+        <ion-select formControlName="yourinitialjudging" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let initialjudging of initialjudgings" [value]="initialjudging" >{{initialjudging}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Your Model Basing</ion-label>
+        <ion-select formControlName="yourmodelbasing" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let modelbasing of modelbasings" [value]="modelbasing" >{{modelbasing}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Your Painting Skills</ion-label>
+        <ion-select formControlName="yourpaintingskills" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let paintingskill of paintingskills" [value]="paintingskill" >{{paintingskill}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Your Conversions</ion-label>
+        <ion-select formControlName="yourconversions" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let conversion of conversions" [value]="conversion" >{{conversion}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Your Extras: Display Bases</ion-label>
+        <ion-select formControlName="yourextrasdisplaybases" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let displaybase of displaybases" [value]="displaybase" >{{displaybase}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Your Extras: Details</ion-label>
+        <ion-select formControlName="yourextrasdetails" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let detail of details" [value]="detail" >{{detail}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Opponents Initial judging</ion-label>
+        <ion-select formControlName="opponentsinitialjudging" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let initialjudging of initialjudgings" [value]="initialjudging" >{{initialjudging}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Opponents Model Basing</ion-label>
+        <ion-select formControlName="opponentsmodelbasing" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let modelbasing of modelbasings" [value]="modelbasing" >{{modelbasing}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Opponents Painting Skills</ion-label>
+        <ion-select formControlName="opponentspaintingskills" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let paintingskill of paintingskills" [value]="paintingskill" >{{paintingskill}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Opponents Conversions</ion-label>
+        <ion-select formControlName="opponentsconversions" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let conversion of conversions" [value]="conversion" >{{conversion}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Opponents Extras: Display Bases</ion-label>
+        <ion-select formControlName="opponentsextrasdisplaybases" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let displaybase of displaybases" [value]="displaybase" >{{displaybase}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Opponents Extras: Details</ion-label>
+        <ion-select formControlName="opponentsextrasdetails" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let detail of details" [value]="detail" >{{detail}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-button class="submit-btn" type="submit" expand="block" fill="outline" [disabled]="!submitForm.valid">Submit</ion-button>
+    <ion-button class="submit-btn" type="reset" expand="block" fill="outline">Clear Form</ion-button>
+  </form>
+</ion-content>
+

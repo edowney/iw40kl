@@ -8,45 +8,55 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'game',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+              import('../game/game.module').then(m => m.GamePageModule)
           }
         ]
       },
       {
-        path: 'tab2',
+        path: 'paintRubric',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+              import('../paintRubric/paintRubric.module').then(m => m.PaintRubricPageModule)
           }
         ]
       },
       {
-        path: 'tab3',
+        path: 'submit',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+              import('../submit/submit.module').then(m => m.SubmitPageModule)
+          }
+        ]
+      },
+      {
+        path: 'chessClock',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../chessClock/chessClock.module').then(m => m.ChessClockPageModule)
           }
         ]
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/game',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/game',
     pathMatch: 'full'
   }
 ];
